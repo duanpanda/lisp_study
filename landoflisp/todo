@@ -1,0 +1,29 @@
+* [f] wizards-game.lisp: game-action
+  (gensym) solution
+* sbcl socket and web server.
+* extend dice-of-doom-v3 to enable multiplayers
+* sbcl debugging
+* chapter 20
+
+* ten weapons
+1. functional
+2. macro
+3. restart
+4. generic setter
+5. DSL
+6. CLOS, multiple dispatch
+7. continuation (Scheme), continuation-passing style
+8. brevity (Arc)
+9. multicore (Clojure, software transactional memory), dosync, CL-STM extension for CL
+10. lazy (Clojure), for CL: Series library, CLAZY library
+
+guess-num
+wizards-game
+dice-of-doom
+evolution
+wumpus
+orc-battle
+robots
+
+svg-writer
+webserver

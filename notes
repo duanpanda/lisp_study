@@ -1,0 +1,48 @@
+-*- mode: org -*-
+
+* Four Standard Packages
+user
+lisp
+keyword
+(at least one package for implementation-specific functions)
+
+* Package Systems, S-expressions, and Forms
+The development of the package system is related to the change of focus from
+S-expressions to forms.
+
+S-expressions are syntactic units, sequences of characters that form the
+written version of LISP programs and data structures.
+LISP's read-eval-print loop consisted of reading an S-expression, evaluating
+it, and the printing the value as an S-expression.
+
+A form is a COMMON LISP object that can be evaluated, and the major action of
+CL is the evaluation of such forms, or objects.
+The CL read-eval-print loop really have five steps: reading and S-expression,
+creating the object the S-expression denotes, evaluating the object, choosing a
+printed representation of the value, and printing that representation.  (There
+are so many different printed expressions of the same CL object.)
+
+* CL Types
+CL is object-oriented in the sense that: variables have objects as their
+values, and two variables can be bound to the same object; composite objects
+have objects as their parts; objects, rather than expressions, have values and
+types.
+
+Type error occurs at run-time.
+
+CL is also object-oriented in that CL has typed objects rather than typed
+variables.
+
+
+** check-type
+
+** number
+number
+  integer
+  float
+    short-float
+    single-float
+    double-float
+    long-float
+
+There is no significance to the order of types that are at the same level.

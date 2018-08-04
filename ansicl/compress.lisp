@@ -8,7 +8,7 @@
   (if (null lst)
       (list (n-elts elt n))
       (let ((next (car lst)))
-	(if (eql next elt)
+	(if (equal next elt)		; use EQUAL instead of EQL
 	    (compr elt (+ n 1) (cdr lst))
 	    (cons (n-elts elt n)
 		  (compr next 1 (cdr lst)))))))

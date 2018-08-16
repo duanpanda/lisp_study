@@ -46,3 +46,35 @@
 	    (incf (cdr rec))
 	    (push (cons elm 1) acc))))
     (sort acc #'> :key #'cdr)))
+
+;;; Why does (member '(a) '((a) (b))) return NIL?
+(member '(a) '((a) (b)) :test #'equal)	; => ((A) (B))
+(member 'a '((a) (b)) :key #'car) 	; => ((A) (B))
+
+;;; Suppose the function POS+ takes a list and returns a list of each element
+;;; plus its position:
+;;; (POS+ '(7 5 1 4)) => (7 6 3 7)
+;;; Define this function using (a) recursion, (b) iteration, (c) mapcar.
+(defun pos+-helper (lst current-pos)
+  (if (null lst)
+      nil
+      (cons (+ (car lst) current-pos) (pos+-helper (cdr lst) (+ current-pos 1)))))
+(defun pos+-recursive (lst)
+  (pos+-helper lst 0))
+(setf (symbol-function 'pos+) #'pos+-recursive)
+
+(defun pos+-iterative (lst)
+  (let ((result '()))
+    (do ((i 0 (+ i 1)))
+	((>= i (length lst)) (reverse result))
+      (push (+ i (nth i lst)) result))))
+(setf (symbol-function 'pos+) #'pos+-iterative)
+
+(defun range (n)
+  (let ((result '()))
+    (do ((i (- n 1) (- i 1)))
+	((< i 0) result)
+      (setf result (cons i result)))))
+(defun pos+-mapcar (lst)
+  (mapcar #'+ lst (range (length lst))))
+(setf (symbol-function 'pos+) #'pos+-mapcar)

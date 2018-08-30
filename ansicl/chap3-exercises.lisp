@@ -92,15 +92,6 @@
 ;;; and "CAR" points to the rest of it.
 ;;; Define CONS, LIST, LENGTH (for lists), and MEMBER (for lists; no keywords)
 ;;; for this kind of list.
-(defun d-cons (x y)
-  (lambda (m) (funcall m x y)))
-;;; The following definition works even DCONS is NIL
-(defun d-car (dcons)
-  (if dcons (funcall dcons (lambda (p q) q))))
-(defun d-cdr (dcons)
-  (if dcons (funcall dcons (lambda (p q) p))))
-
-
 (defun g-cons (x y)
   (cons y x))
 
@@ -134,3 +125,12 @@
 ;;; => (NIL)
 ;;; CL-USER> (g-member 2 *r*)
 ;;; NIL
+
+;;; SICP exercise (just for fun)
+(defun d-cons (x y)
+  (lambda (m) (funcall m x y)))
+;;; The following definition works even DCONS is NIL
+(defun d-car (dcons)
+  (if dcons (funcall dcons (lambda (p q) p))))
+(defun d-cdr (dcons)
+  (if dcons (funcall dcons (lambda (p q) q))))

@@ -151,19 +151,20 @@
 ;;; (a)   => (A . NIL)          => consp => true,   null => false
 ;;; ((a)) => ((A . NIL) . NIL)  => consp => true,   null => false
 (defun showdots (lst)
-  (if (not (consp lst))
-      (format t "~A" lst)
-      (if (null lst)
-	  (format t "NIL")
-	  (progn
-	    (format t "(")
-	    (if (consp (car lst))
-		(progn
-		  (showdots (car lst))
-		  (format t " . "))
-		(format t "~A . " (car lst)))
-	    (showdots (cdr lst))
-	    (format t ")")))))
+  (cond
+    ((not (consp lst))
+     (format t "~A" lst))
+    ((null lst)
+     (format t "NIL"))
+    (t
+     (format t "(")
+     (if (consp (car lst))
+	 (progn
+	   (showdots (car lst))
+	   (format t " . "))
+	 (format t "~A . " (car lst)))
+     (showdots (cdr lst))
+     (format t ")"))))
 
 (showdots '())
 (showdots '(a))

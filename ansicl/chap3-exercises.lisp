@@ -11,8 +11,8 @@
 '(d . nil)				 ; '(d)
 '((d . nil) . nil)			 ; '((d))
 '(c . ((d . nil) . nil))		 ; '(c (d))
-'(b . ((c . ((d . nil) . nil))))	 ; '(b (c (d)))
-'(a . ((b . ((c . ((d . nil) . nil)))))) ; '(a (b (c (d)))), 5 conses
+'(b . ((c . ((d . nil) . nil)) . nil))	 ; '(b (c (d)))
+'(a . ((b . ((c . ((d . nil) . nil)) . nil)) . nil)) ; '(a (b (c (d)))), 7 conses
 
 '(((a b) c) d)
 '(a . (b . nil))			; '(a b)
@@ -134,3 +134,43 @@
   (if dcons (funcall dcons (lambda (p q) p))))
 (defun d-cdr (dcons)
   (if dcons (funcall dcons (lambda (p q) q))))
+
+;;; 7. Modify the program in Figure 3.6 (compress) to use fewer cons cells.
+;;; Hint: use dotted lists.
+(defun n-elts (elt n)
+  (if (> n 1)
+      (cons n elt)
+      elt))
+
+;;; 8. Define a function that takes a list and prints it in dot notation
+;;; > (showdots '(a b c))
+;;; (A . (B . (C . NIL)))
+;;; NIL
+;;;
+;;; ()    => NIL                => consp => false,  null => true
+;;; (a)   => (A . NIL)          => consp => true,   null => false
+;;; ((a)) => ((A . NIL) . NIL)  => consp => true,   null => false
+(defun showdots (lst)
+  (if (not (consp lst))
+      (format t "~A" lst)
+      (if (null lst)
+	  (format t "NIL")
+	  (progn
+	    (format t "(")
+	    (if (consp (car lst))
+		(progn
+		  (showdots (car lst))
+		  (format t " . "))
+		(format t "~A . " (car lst)))
+	    (showdots (cdr lst))
+	    (format t ")")))))
+
+(showdots '())
+(showdots '(a))
+(showdots '(a b))
+(showdots '((a)))
+(showdots '(a b (c d)))
+(showdots '(a (b (c (d)))))
+(showdots '(((a b) c) d))
+(showdots '(a . b))
+(showdots '(a (b . c) . d))
